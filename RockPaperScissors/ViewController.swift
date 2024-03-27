@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     //Properties
     var myHand = "" //Represents the hand selected by the user
-    let hands = ["👊🏼", "✋🏼", "✌🏼"] //Array containing the possible hand choices
+    let hands = ["👊🏼", "✋🏼", "✌🏼","🖖🏼", "🦎"] //Array containing the possible hand choices
     let losesAgainst: [String: Set<String>] = [
         "👊🏼": ["✌🏼", "🦎"], // Rock loses against Scissors and Lizard
         "✋🏼": ["👊🏼", "🖖🏼"], // Paper loses against Rock and Spock
@@ -85,19 +85,35 @@ class ViewController: UIViewController {
     
     // Action associated with the play button
     @IBAction func play(_ sender: Any) {
-        var counter = 3 // Counter for the countdown before the end of the game
+        //var counter = 3 // Counter for the countdown before the end of the game
         
         // Timer to simulate the countdown
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if counter > 0 {
-                self.label.text = "You've selected \(self.myHand)\n\(counter)"
-            }else {
-                timer.invalidate()
-                self.finishGame() // Calls the function to finish the game and display the result
-            }
-            counter -= 1
-        }
-        generateHapticFeedback() // Calls the function to finish the game and display the result
-    }
+        /*Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+         if counter > 0 {
+         self.label.text = "You've selected \(self.myHand)\n\(counter)"
+         }else {
+         timer.invalidate()
+         self.finishGame() // Calls the function to finish the game and display the result
+         }
+         counter -= 1
+         }*/
+         let animationDuration = 5.0 // Duration of the emoji animation (in seconds)
+         let animationInterval = 0.5 // Time interval between emoji updates
+         
+         // Start emoji animation
+         var currentIndex = 0
+         let timer = Timer.scheduledTimer(withTimeInterval: animationInterval, repeats: true) { timer in
+         self.label.text = self.hands[currentIndex % self.hands.count]
+         currentIndex += 1
+         }
+         
+         // Stop emoji animation after the specified duration
+         DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+         timer.invalidate()
+         self.finishGame()
+         }
+         generateHapticFeedback() // Calls the function to finish the game and display the result
+         }
+        
 }
 
