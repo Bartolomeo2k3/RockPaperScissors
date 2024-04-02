@@ -76,6 +76,7 @@ class ViewController: UIViewController {
           message = "It's a DRAW!"
         }else if losesAgainst[myHand]?.contains(CPUhand) ?? false{
             message = "You Win!"
+           
         }else{
             message = "CPU Wins!"
         }
@@ -83,20 +84,9 @@ class ViewController: UIViewController {
         label.text = "You've selected \(myHand)\nCPU selected \(CPUhand)\n\(message)"
     }
     
+    
     // Action associated with the play button
     @IBAction func play(_ sender: Any) {
-        //var counter = 3 // Counter for the countdown before the end of the game
-        
-        // Timer to simulate the countdown
-        /*Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-         if counter > 0 {
-         self.label.text = "You've selected \(self.myHand)\n\(counter)"
-         }else {
-         timer.invalidate()
-         self.finishGame() // Calls the function to finish the game and display the result
-         }
-         counter -= 1
-         }*/
          let animationDuration = 5.0 // Duration of the emoji animation (in seconds)
          let animationInterval = 0.5 // Time interval between emoji updates
          
