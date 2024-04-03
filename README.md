@@ -1,4 +1,4 @@
-# Rock, Paper, Scissors, Spock, and Lizard
+# Rock, Paper, Scissors, Spock and Lizard
 
 This iOS app is a simple implementation of the popular game "Rock, Paper, Scissors" with two additional options: "Spock" and "Lizard". It allows users to play against the computer and see the result of each round.This little app is created entirely with UIKit by myself based on my learning experience
 
