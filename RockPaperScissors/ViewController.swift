@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     //Properties
+    var handSelected = false //Indicates whether the user has selected a hand or not
     var myHand = "" //Represents the hand selected by the user
     let hands = ["👊🏼", "✋🏼", "✌🏼","🖖🏼", "🦎"] //Array containing the possible hand choices
     let losesAgainst: [String: Set<String>] = [
@@ -31,30 +32,35 @@ class ViewController: UIViewController {
     // Actions associated with the hand selection buttons
     @IBAction func selectRock(_ sender: Any) {
         myHand = "👊🏼"
+        handSelected = true
         label.text = "You've selected \(myHand)"
         generateHapticFeedback() // Generates haptic feedback when the user selects a hand
     }
     
     @IBAction func selectPaper(_ sender: Any) {
         myHand = "✋🏼"
+        handSelected = true
         label.text = "You've selected \(myHand)"
         generateHapticFeedback() // Generates haptic feedback when the user selects a hand
     }
     
     @IBAction func selectScissors(_ sender: Any) {
         myHand = "✌🏼"
+        handSelected = true
         label.text = "You've selected \(myHand)"
         generateHapticFeedback() // Generates haptic feedback when the user selects a hand
     }
     
     @IBAction func selectSpock(_ sender: Any) {
         myHand = "🖖🏼"
+        handSelected = true
         label.text = "You've selected \(myHand)"
         generateHapticFeedback() // Generate haptic feedback when user selects a hand
     }
     
     @IBAction func selectLizard(_ sender: Any) {
         myHand = "🦎"
+        handSelected = true
         label.text = "You've selected \(myHand)"
         generateHapticFeedback() // Generate haptic feedback when user selects a hand
     }
@@ -87,23 +93,27 @@ class ViewController: UIViewController {
     
     // Action associated with the play button
     @IBAction func play(_ sender: Any) {
-         let animationDuration = 5.0 // Duration of the emoji animation (in seconds)
-         let animationInterval = 0.5 // Time interval between emoji updates
-         
-         // Start emoji animation
-         var currentIndex = 0
-         let timer = Timer.scheduledTimer(withTimeInterval: animationInterval, repeats: true) { timer in
-         self.label.text = self.hands[currentIndex % self.hands.count]
-         currentIndex += 1
-         }
-         
-         // Stop emoji animation after the specified duration
-         DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
-         timer.invalidate()
-         self.finishGame()
-         }
-         generateHapticFeedback() // Calls the function to finish the game and display the result
-         }
+        if handSelected{
+            let animationDuration = 5.0 // Duration of the emoji animation (in seconds)
+            let animationInterval = 0.5 // Time interval between emoji updates
+            
+            // Start emoji animation
+            var currentIndex = 0
+            let timer = Timer.scheduledTimer(withTimeInterval: animationInterval, repeats: true) { timer in
+                self.label.text = self.hands[currentIndex % self.hands.count]
+                currentIndex += 1
+            }
         
+            
+            // Stop emoji animation after the specified duration
+            DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+                timer.invalidate()
+                self.finishGame()
+            }
+            generateHapticFeedback() // Calls the function to finish the game and display the result
+        }else{
+            label.text = "Please select a hand first!"
+        }
+    }
 }
 
